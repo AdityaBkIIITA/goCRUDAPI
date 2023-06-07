@@ -10,8 +10,10 @@ import (
 )
 
 func main() {
+
 	router := gin.Default()
-	config.ConnectDB()
+	config.LoadEnv()   //loading env
+	config.ConnectDB() //new database connection
 
 	if v, f := os.LookupEnv("USE_AUTH"); f && v == "true" {
 		fmt.Println("Using Auth")
@@ -19,5 +21,6 @@ func main() {
 	} else {
 		routes.UserRoute(router)
 	}
+
 	router.Run(":8080")
 }
